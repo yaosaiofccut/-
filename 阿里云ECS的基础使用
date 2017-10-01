@@ -1,0 +1,23 @@
+  使用的是liunx操作系统，自带jdk，mysql，tomcat等服务。服务器不是我开的，所以借过来的使用的时候基本是盲僧探索。
+  首先jak，mysql等目录存放的位置是“/alidata/server”下。需要补充的是mysql配置文件my.cof存放的位置是"/etc"下。
+  1》登陆进入mysql命令行下会有1045号错误，自行搜索。解决办法
+  1.利用vi指令修改 my.cnf下的配置
+    在[mysqld]下，加入skip-grant-tables
+  2.重启mysql服务器
+    mysqld restart//有不同重启命令
+  3.登陆mysql数据库
+    mysql -u root -p //此时的登陆不不要密码，直接进入mysql命令行
+  4.修改root密码
+    mysql> USE mysql;
+    mysql> UPDATE user SET Password = password (‘新密码’) WHERE User = ‘root’ ;
+    mysql> flush privileges ;
+    mysql> quit
+  5.删除第一步中加入的语句skip-grant-tables
+  6.重启服务器
+  2》如果想远程连接这个mysql数据库，需要配置连接
+  1.进入mysql命令行
+  2.输入
+  mysql> GRANT ALL PRIVILEGES ON *.* TO 'root'@'%'DENTIFIED BY "root的密码";//运行远程连接通过root及密码连接
+  mysql> flush privileges;//更新权限
+  注：还可以配置固定ip连接，请自行搜索。
+        ----2017.10.1 22.26
